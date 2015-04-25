@@ -24,11 +24,11 @@ namespace Collections
 
         static void Main(string[] args)
         {
-            EnumerableExample();
+           // EnumerableExample();
             //YieldExample();
-            //CollectionExample();
-            //ListExample();
-            //DictionaryExample();
+           // CollectionExample();
+           // ListExample();
+            DictionaryExample();
         }
 
         private static void EnumerableExample()
@@ -114,8 +114,8 @@ namespace Collections
             var bandsList = new List<Band>(BandsArray);
 
             //Custom comparer example
-            bandsList.Sort(new BasicBandsComparer());
-            //bandsList.Sort(new CustomBandsComparer(BandsCompareBy.Country));
+           // bandsList.Sort(new BasicBandsComparer());
+            bandsList.Sort(new CustomBandsComparer(BandsCompareBy.NameLength));
             //bandsList.Sort(new CustomBandsComparer(BandsCompareBy.Name));
             //bandsList.Sort(new CustomBandsComparer(BandsCompareBy.AlbumCount));
 
@@ -181,7 +181,8 @@ namespace Collections
             Console.WriteLine();
 
             //TODO 7: Check if key is present before adding/retrieving a new entry.
-            //bandsDictionary.Add("Muse", new Band("Muse", 6, "Alternative Rock", "England"));
+          if(!bandsDictionary.ContainsKey("Muse"))
+            bandsDictionary.Add("Muse", new Band("Muse", 6, "Alternative Rock", "England"));
             //Console.WriteLine(bandsDictionary["Guta"].Name);
         }
 
@@ -208,7 +209,12 @@ namespace Collections
 
         private static IEnumerable<Band> BritishBands(IEnumerable<Band> bandsList)
         {
-            yield return new Band("", 0, "", "");
+            foreach (Band b in bandsList)
+            {
+                if(b.Country == "England")
+                    yield return b;
+            }
+            
         }
 
     }

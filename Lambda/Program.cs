@@ -43,13 +43,13 @@ namespace Lambda
              */
 
             //TODO 4: Create an instance of NumberCheck (TODO 1)
-
+            NumberCheck even_function = new NumberCheck(SpecialFunctions.IsEven);
             //TODO 5: Use function GetEvenNumbers to select the even numbers from numbersList collection
             ArrayList numbersList = new ArrayList(new int[] { 0, 1, 2, 6, 8, 9, 21, 24, 10 });
-
+            List<int> result = SpecialFunctions.GetEvenNumbers(even_function, numbersList);
             //TODO 6: Print the resulted numbers
-
-
+            foreach (int i in result)
+                Console.WriteLine(i);
             Console.WriteLine();
         }
 
@@ -60,6 +60,7 @@ namespace Lambda
             //Create Func Delegate instances
             Func<double, double, double> sum_Function = new Func<double, double, double>(SpecialFunctions.Sum);
             Func<double, double, double> prod_Function = new Func<double, double, double>(SpecialFunctions.Product);
+            Func<int, bool> even_Function = new Func<int, bool>(SpecialFunctions.IsEven);
 
             double val1 = 4.0, val2 = 5.0;
 
@@ -88,6 +89,9 @@ namespace Lambda
              * TODO 7 
              * Create an instance of function created at TODO 2 and use it to print the odd numbers from numbersList collection
              */
+            foreach (int i in numbersList)
+                if (even_Function(i))
+                    Console.WriteLine(i);
 
             Console.WriteLine();
         }
@@ -106,7 +110,13 @@ namespace Lambda
             {
                 return var1 * var2;
             };
-
+            Func<int, bool> even_Function = delegate(int var1)
+            {
+                if (var1 % 2 == 0)
+                    return true;
+                else
+                    return false;
+            };
 
             double val1 = 4.0, val2 = 3.0;
 
@@ -131,10 +141,12 @@ namespace Lambda
              * TODO 8 
              * Create an instance of function created at TODO 2 and use it to print the odd numbers from numbersList collection
              */
-
+            foreach (int i in numbersList)
+                if (even_Function(i))
+                    Console.WriteLine(i);
             //Omitting the explicit creation of a Func instance
             Console.Write("{0} - {1} = ", val1, val2);
-            SpecialFunctions.ExecuteFunctionUsingFunc(delegate(double var1, double var2) {return var1 + var2; },
+            SpecialFunctions.ExecuteFunctionUsingFunc(delegate(double var1, double var2) { return var1 + var2; },
                                                       val1,
                                                       val2);
 
@@ -147,7 +159,7 @@ namespace Lambda
 
             //Use lamba expression to create a Func delegate instance
             Func<double, double, double> sum_Function = (double var1, double var2) => var1 + var2;
-            
+
             //Use lambda expression without data type to create a Func delegate instance
             Func<double, double, double> sum_Function_withoutType = (var1, var2) => var1 + var2;
 
@@ -183,20 +195,50 @@ namespace Lambda
             Console.Write("{0} - {1} = ", val1, val2);
             SpecialFunctions.ExecuteFunction((var1, var2) => var1 - var2, val1, val2);
 
-            ArrayList numbersList = new ArrayList(new int[] { 0, 1, 2, 6, 8, 9, 21, 24, 10 });
+            List<int> numbersList = new List<int>(new int[] { 0, 1, 2, 6, 8, 9, 21, 24, 10 });
             /**
              * TODO 9
              *
              * Create a lambda expression which receives two parameters and returns the biggest number
              * and use it to extract the biggest number from numbersList collection.
              */
-
-
+            Func<int,int,int> max =  ((int x, int y) =>
+            {
+                if (x > y)
+                {
+                    return x;
+                }
+                else
+                {
+                    return y;
+                }
+            });
+            int maxN = numbersList[0];
+            for (int i = 1; i < numbersList.Count; i++){
+                    maxN = max(numbersList[i], maxN);
+            } 
+            Console.WriteLine("Nr maxim:");
+            Console.WriteLine(maxN);
             /**
              * TODO 10 (for home)
              * Use the lambda expression from TODO 9  to sort the collection ascending.
              */
- 
+            Console.WriteLine("Sortare:");
+            int swap = 0;
+            for (int i = 0; i < numbersList.Count() - 1; i++)
+            {
+                for (int j = i + 1; j < numbersList.Count(); j++)
+                {
+                    if (max(numbersList[i], numbersList[j]) == numbersList[i]) 
+                    {
+                        swap = numbersList[i];
+                        numbersList[i] = numbersList[j];
+                        numbersList[j] = swap;
+                    }
+                }
+            }
+            foreach (int i in numbersList)
+                    Console.WriteLine(i);
             Console.WriteLine();
         }
 
@@ -226,19 +268,19 @@ namespace Lambda
         static void Main(string[] args)
         {
             //run Delegate example
-            DelegateExample();
+          //  DelegateExample();
 
             //run Func Delegate example
-            FuncDelegateExample();
+            // FuncDelegateExample();
 
             //run Anonymous functions example
-            AnonymousFunctExample();
+           // AnonymousFunctExample();
 
             //run Lambda expressions example
             LambdaExample();
 
             //run Closure example
-            ClosureExample();
+            //ClosureExample();
 
             Console.ReadKey();
         }
