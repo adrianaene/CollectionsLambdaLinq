@@ -110,12 +110,9 @@ namespace Lambda
             {
                 return var1 * var2;
             };
-            Func<int, bool> even_Function = delegate(int var1)
+            Func<int, bool> even_Function = delegate(int number)
             {
-                if (var1 % 2 == 0)
-                    return true;
-                else
-                    return false;
+                return number % 2 == 0;
             };
 
             double val1 = 4.0, val2 = 3.0;
@@ -141,9 +138,9 @@ namespace Lambda
              * TODO 8 
              * Create an instance of function created at TODO 2 and use it to print the odd numbers from numbersList collection
              */
-            foreach (int i in numbersList)
-                if (even_Function(i))
-                    Console.WriteLine(i);
+            foreach (int number in numbersList)
+                if (even_Function(number))
+                    Console.WriteLine(number);
             //Omitting the explicit creation of a Func instance
             Console.Write("{0} - {1} = ", val1, val2);
             SpecialFunctions.ExecuteFunctionUsingFunc(delegate(double var1, double var2) { return var1 + var2; },
