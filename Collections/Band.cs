@@ -1,6 +1,9 @@
-﻿namespace Collections
+﻿using System;
+using System.Collections;
+
+namespace Collections
 {
-    public class Band
+    public class Band : IComparable 
     {
         public string Name { get; private set; }
         public int StudioAlbums { get; private set; }
@@ -13,6 +16,18 @@
             StudioAlbums = studioAlbums;
             Genre = genre;
             Country = country;
+        }
+
+        // sortare dupa nr de albume
+        public int CompareTo(object obj)
+        {
+            if (obj == null) return 1;
+
+            Band otherBand = obj as Band;
+            if (otherBand != null)
+                return this.StudioAlbums.CompareTo(otherBand.StudioAlbums);
+            else
+                throw new ArgumentException("Object is not a Band");
         }
     }
 }

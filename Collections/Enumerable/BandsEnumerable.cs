@@ -7,6 +7,19 @@ namespace Collections.Enumerable
     {
         private Band[] bands;
 
+        // add indexer
+        public Band this[int i]
+        {
+            get
+            {
+                return bands[i];
+            }
+            set
+            {
+                bands[i] = value;
+            }
+        }
+
         public BandsEnumerable(Band[] bandsArray)
         {
             bands = new Band[bandsArray.Length];

@@ -11,6 +11,7 @@ namespace Collections
 {
     class Program
     {
+        private static List<Band> bands = new List<Band>();
         private static readonly Band[] BandsArray =
         {
             new Band("Led Zeppelin", 9, "Hard Rock", "England"),
@@ -28,7 +29,28 @@ namespace Collections
             //YieldExample();
            // CollectionExample();
            // ListExample();
-            DictionaryExample();
+            //DictionaryExample();
+
+            //afisare folosind indexer
+            
+            for (int i = 0; i < BandsArray.Count(); i++)
+                Console.WriteLine(BandsArray[i].Name + " " + BandsArray[i].StudioAlbums + " " + BandsArray[i].Genre + " " + BandsArray[i].Country);
+            Console.WriteLine();
+            // populare List<Band>
+            bands.Add(new Band("Led Zeppelin", 9, "Hard Rock", "England"));
+            bands.Add(new Band("Judas Priest", 17, "Heavy Metal", "England"));
+            bands.Add(new Band("Phoenix", 10, "Rock", "Romania"));
+            bands.Add(new Band("Black Sabbath", 19, "Heavy Metal", "England"));
+            bands.Add(new Band("Rammstein", 6, "Industrial Metal", "Germany"));
+            bands.Add(new Band("Black Keys", 8, "Indie Rock", "United States"));
+            bands.Add(new Band("Muse", 6, "Alternative Rock", "England"));
+
+            // se sorteaza in functie de numarul de albume
+            bands.Sort();
+            foreach(Band band in bands)
+                 Console.WriteLine("{0}   {1}   {2}   {3} ", band.Name, band.Genre, band.Country, band.StudioAlbums);
+            Console.Read();
+         
         }
 
         private static void EnumerableExample()
